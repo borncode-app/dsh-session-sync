@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "ซิงก์เซสชัน",
+    "description": "นำบทสนทนาจาก Claude Code และ MiniMax Code เข้ามาใน workspace ของ DSH ที่ตรงกับโฟลเดอร์โครงการ แล้วเติมคำนำหน้าชื่อ [Claude Code] หรือ [MiniMax Code] ให้แต่ละเซสชัน"
+  }
+}

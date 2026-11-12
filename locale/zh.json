@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "会话同步",
+    "description": "将 Claude Code 与 MiniMax Code 的会话导入对应的 DSH 工作区，并用 [Claude Code] 或 [MiniMax Code] 标题前缀标记每个会话。"
+  }
+}

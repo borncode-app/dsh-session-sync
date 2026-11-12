@@ -1,0 +1,9 @@
+node_modules/
+*.log
+pnpm-debug.log*
+.env
+.env.*
+state.json
+*-status.json
+.DS_Store
+Thumbs.db

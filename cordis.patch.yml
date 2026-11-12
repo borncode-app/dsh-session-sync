@@ -1,0 +1,15 @@
+# Inserts the session-sync Host row. It scans Claude Code's transcript directory
+# and MiniMax Code's sqlite session store, imports every new conversation as a
+# persisted DSH Session in the workspace whose folder matches the session's own
+# working directory, and records the origin for the Client badge.
+- insert:
+    - id: session-sync
+      name: '@local/dsh-session-sync'
+      config:
+        # Route the Client half reads and posts to.
+        endpoint: /plugins/session-sync
+        # Scan at startup and then on a slow interval.
+        autoSync: true
+        intervalMinutes: 15
+        # Per-message character budget; longer bodies are truncated visibly.
+        maxTextChars: 20000

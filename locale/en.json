@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Session sync",
+    "description": "Imports Claude Code and MiniMax Code conversations into the DSH workspace that owns their project folder, and flags each one with a [Claude Code] or [MiniMax Code] title prefix."
+  }
+}
