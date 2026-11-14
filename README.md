@@ -1,7 +1,29 @@
+> **This repository has moved into one monorepo.**
+>
+> The BornCode plugins — agent customization, desktop control, auto-continue,
+> auto-shutdown, browser use, session instructions, session sync, and the side
+> chat — now live in
+> **[`borncode-app/dsh-borncode`](https://github.com/borncode-app/dsh-borncode)**,
+> one repository with one Plugins entry.
+>
+> | this repo | new home |
+> |---|---|
+> | `dsh-agent-customizer` | `packages/dsh-agent-customizer` |
+> | `dsh-agent-desktop` | `packages/dsh-agent-desktop` |
+> | `dsh-auto-continue` | `packages/dsh-auto-continue` |
+> | `dsh-auto-shutdown` | `packages/dsh-auto-shutdown` |
+> | `dsh-browser-use` | `packages/dsh-browser-use` |
+> | `dsh-session-instructions` | `packages/dsh-session-instructions` |
+> | `dsh-session-sync` | `packages/dsh-session-sync` |
+> | `dsh-side-chat` | `packages/dsh-side-chat` |
+>
+> The code and its history are unchanged; only the repository is shared. Install
+> `dsh-borncode` instead of the individual bundles. This repository stays open
+> so the old links keep working.
 <div align="center">
   <img src="icon.svg" alt="" width="72" height="72">
   <h1>dsh-session-sync</h1>
-  <p><b>Brings your Claude Code and MiniMax Code conversations into DeepSeek Harness — in the right workspace.</b></p>
+  <p><b>Brings your Claude Code and MiniMax Code conversations into DeepSeek Harness â€” in the right workspace.</b></p>
   <p>
     <a href="https://github.com/borncode-app/dsh-session-sync/releases"><img alt="release" src="https://img.shields.io/github/v/release/borncode-app/dsh-session-sync?style=flat-square&color=6C4BF6"></a>
     <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-3DA639?style=flat-square"></a>
@@ -19,7 +41,7 @@ You have conversations in **Claude Code** (`~/.claude/projects/**/*.jsonl`) and 
 them, so the work you did there is invisible here.
 
 This plugin imports those conversations as ordinary **persisted DSH sessions**, filed under the workspace whose
-folder matches the session's own working directory — and marks every one of them with the logo of the app it
+folder matches the session's own working directory â€” and marks every one of them with the logo of the app it
 came from.
 
 The plugin follows one rule: **a workspace is keyed by its folder path**. A session recorded in
@@ -42,9 +64,9 @@ the state file maps every external session to a deterministic DSH session id.
 
 Each Session row shows a 14 px logo in its leading cell:
 
-- **orange starburst** — Claude Code
-- **violet M** — MiniMax Code
-- **blue D** — a DSH session
+- **orange starburst** â€” Claude Code
+- **violet M** â€” MiniMax Code
+- **blue D** â€” a DSH session
 
 The logo is drawn as inline SVG, so it matches the interface in every theme and costs one small component per idle
 row. The source map is fetched once from the Host status route; a late answer re-renders every mounted row through
@@ -55,14 +77,14 @@ primary state), so the logo appears on idle rows.
 
 The Host answers a JSON route at `/plugins/session-sync`:
 
-- `GET` — counts per origin, the last run, both source paths.
-- `POST {"action":"sync"}` — scan and import now.
-- `POST {"action":"warm"}` — rebuild the projection cache for imported sessions (the sidebar reads historical
+- `GET` â€” counts per origin, the last run, both source paths.
+- `POST {"action":"sync"}` â€” scan and import now.
+- `POST {"action":"warm"}` â€” rebuild the projection cache for imported sessions (the sidebar reads historical
   titles from that cache).
-- `POST {"action":"verify","sessionId":"…"}` — replay-validate one imported log.
-- `POST {"action":"regroup","dryRun":true}` — plan the MiniMax regroup (below).
-- `POST {"action":"regroup"}` — run it.
-- `POST {"action":"rename-sandboxes"}` — give the remaining MiniMax sandbox workspaces their conversation's title.
+- `POST {"action":"verify","sessionId":"â€¦"}` â€” replay-validate one imported log.
+- `POST {"action":"regroup","dryRun":true}` â€” plan the MiniMax regroup (below).
+- `POST {"action":"regroup"}` â€” run it.
+- `POST {"action":"rename-sandboxes"}` â€” give the remaining MiniMax sandbox workspaces their conversation's title.
 
 Automatic sync runs 3.5 seconds after startup and then every 15 minutes. It only parses sessions whose external
 fingerprint changed, so a quiet run is cheap.
@@ -70,12 +92,12 @@ fingerprint changed, so a quiet run is cheap.
 ## MiniMax sandboxes and the regroup
 
 MiniMax Code stores each session's working directory as its own sandbox (`~/.minimax/sessions/<id>/workspace`), not
-the folder the user was working in. The real folder only appears in the prompt — usually inside `<filepath>…</filepath>`
+the folder the user was working in. The real folder only appears in the prompt â€” usually inside `<filepath>â€¦</filepath>`
 or as an absolute Windows path.
 
 `regroup` reads the prompt, resolves the first path that is an existing project folder, imports the conversation
 **into that folder's workspace**, and archives the sandbox copy. A path that runs into the surrounding sentence
-(``C:\FO3TH`, and deliver …``) still resolves, because candidates are shortened from the right until one exists.
+(``C:\FO3TH`, and deliver â€¦``) still resolves, because candidates are shortened from the right until one exists.
 
 Refused as project folders: the home directory, hidden folders directly under it (`~/.ssh`),
 `AppData\Local\Temp`, `Windows`, `node_modules`, `.git`, and anything inside another MiniMax sandbox. Only an
@@ -85,13 +107,13 @@ A regroup run moves conversations like this:
 
 | Session | From the sandbox to |
 |---|---|
-| เลือก GitHub repo ที่เหมาะทำ portfolio | `C:\Users\you\Documents\portfolio` |
-| แก้ข้อความบนภาพเป็น กรุงเทพใต้ | `C:\Users\you\Documents\presenton` |
-| ย้อนวิศวกรรม C:/FO3TH เป็นแอป Android | `C:\FO3TH` |
-| 查找可用 skills | `C:\FO3TH` |
+| à¹€à¸¥à¸·à¸­à¸ GitHub repo à¸—à¸µà¹ˆà¹€à¸«à¸¡à¸²à¸°à¸—à¸³ portfolio | `C:\Users\you\Documents\portfolio` |
+| à¹à¸à¹‰à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡à¸šà¸™à¸ à¸²à¸žà¹€à¸›à¹‡à¸™ à¸à¸£à¸¸à¸‡à¹€à¸—à¸žà¹ƒà¸•à¹‰ | `C:\Users\you\Documents\presenton` |
+| à¸¢à¹‰à¸­à¸™à¸§à¸´à¸¨à¸§à¸à¸£à¸£à¸¡ C:/FO3TH à¹€à¸›à¹‡à¸™à¹à¸­à¸› Android | `C:\FO3TH` |
+| æŸ¥æ‰¾å¯ç”¨ skills | `C:\FO3TH` |
 
-The remaining MiniMax sessions name no folder in their prompt, so they stay in their sandbox workspace — which
-`rename-sandboxes` renames to `Mavis · <conversation title>` instead of `mvs_<id> workspace`.
+The remaining MiniMax sessions name no folder in their prompt, so they stay in their sandbox workspace â€” which
+`rename-sandboxes` renames to `Mavis Â· <conversation title>` instead of `mvs_<id> workspace`.
 
 ## Requirements
 
@@ -99,7 +121,7 @@ The remaining MiniMax sessions name no folder in their prompt, so they stay in t
 |---|---|
 | DeepSeek Harness | 0.2.x (Web GUI) |
 | Runtime | Node 24, supplied by the Harness runtime |
-| Optional | Claude Code (`~/.claude`) and/or MiniMax Code (`~/.minimax`) — import whichever exist |
+| Optional | Claude Code (`~/.claude`) and/or MiniMax Code (`~/.minimax`) â€” import whichever exist |
 | Note | MiniMax Code must expose `node:sqlite` (`DatabaseSync`); without it the plugin reports `sqlite-unavailable` instead of failing the run |
 
 ## Install
@@ -108,7 +130,7 @@ The remaining MiniMax sessions name no folder in their prompt, so they stay in t
 git clone https://github.com/borncode-app/dsh-session-sync.git dsh-session-sync
 ```
 
-Then in DSH: **Plugins** → install the bundle from that directory, or:
+Then in DSH: **Plugins** â†’ install the bundle from that directory, or:
 
 ```
 plugin_manager install_bundle target=C:\path\to\dsh-session-sync
@@ -132,7 +154,7 @@ Restart once. The first import happens a few seconds after startup.
 | file | role |
 |---|---|
 | `index.js` | Host row: scanning, conversion, persistence, workspace accounting, status route |
-| `lib/convert.mjs` | Pure transcript → DSH event conversion and title/id helpers |
+| `lib/convert.mjs` | Pure transcript â†’ DSH event conversion and title/id helpers |
 | `lib/sources.mjs` | Claude JSONL and MiniMax sqlite readers, project-folder inference |
 | `client.js` | The row logo component and its one-shot source-map store |
 | `cordis.patch.yml` | Bundle patch |
@@ -162,27 +184,27 @@ Run the tests with `npm test` (plain `node --test`, no Harness needed).
 - MiniMax Code must expose `node:sqlite` (`DatabaseSync`) to the Host; the plugin reports `sqlite-unavailable`
   instead of failing the whole run when it does not.
 
-## ภาษาไทย
+## à¸ à¸²à¸©à¸²à¹„à¸—à¸¢
 
-Plugin นี้ **ดึงบทสนทนาที่คุณเคยคุยใน Claude Code และ MiniMax Code เข้ามาใน DSH** โดยจัดเก็บเข้า workspace
-ที่ตรงกับโฟลเดอร์ที่ session นั้นทำงานอยู่ — และติดป้ายโลโก้กำกับว่ามาจากแอปไหน
+Plugin à¸™à¸µà¹‰ **à¸”à¸¶à¸‡à¸šà¸—à¸ªà¸™à¸—à¸™à¸²à¸—à¸µà¹ˆà¸„à¸¸à¸“à¹€à¸„à¸¢à¸„à¸¸à¸¢à¹ƒà¸™ Claude Code à¹à¸¥à¸° MiniMax Code à¹€à¸‚à¹‰à¸²à¸¡à¸²à¹ƒà¸™ DSH** à¹‚à¸”à¸¢à¸ˆà¸±à¸”à¹€à¸à¹‡à¸šà¹€à¸‚à¹‰à¸² workspace
+à¸—à¸µà¹ˆà¸•à¸£à¸‡à¸à¸±à¸šà¹‚à¸Ÿà¸¥à¹€à¸”à¸­à¸£à¹Œà¸—à¸µà¹ˆ session à¸™à¸±à¹‰à¸™à¸—à¸³à¸‡à¸²à¸™à¸­à¸¢à¸¹à¹ˆ â€” à¹à¸¥à¸°à¸•à¸´à¸”à¸›à¹‰à¸²à¸¢à¹‚à¸¥à¹‚à¸à¹‰à¸à¸³à¸à¸±à¸šà¸§à¹ˆà¸²à¸¡à¸²à¸ˆà¸²à¸à¹à¸­à¸›à¹„à¸«à¸™
 
-| แหล่งที่มา | อ่านจาก |
+| à¹à¸«à¸¥à¹ˆà¸‡à¸—à¸µà¹ˆà¸¡à¸² | à¸­à¹ˆà¸²à¸™à¸ˆà¸²à¸ |
 |---|---|
-| Claude Code | `~/.claude/projects/*/*.jsonl` (ข้าม sidechain, tool traffic และ `<system-reminder>`) |
-| MiniMax Code | `~/.minimax/v2/sqlite/runtime-state.sqlite` (เอาแถวข้อความ `user`/`assistant` เท่านั้น) |
+| Claude Code | `~/.claude/projects/*/*.jsonl` (à¸‚à¹‰à¸²à¸¡ sidechain, tool traffic à¹à¸¥à¸° `<system-reminder>`) |
+| MiniMax Code | `~/.minimax/v2/sqlite/runtime-state.sqlite` (à¹€à¸­à¸²à¹à¸–à¸§à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡ `user`/`assistant` à¹€à¸—à¹ˆà¸²à¸™à¸±à¹‰à¸™) |
 
-- session ที่ import แล้วเป็น **session ปกติของ DSH** — เห็นใน sidebar, เปิดอ่านได้, archive/delete ได้ตามปกติ
-- import ซ้ำไม่ได้: `state.json` เก็บ map ของ session ภายนอก → id ของ session ใน DSH
-- โลโก้ในแถว: ⭐ ส้ม = Claude Code, M ม่วง = MiniMax Code, D น้ำเงิน = DSH
-- **regroup** ช่วยกรณี MiniMax เก็บ session ไว้ใน sandbox ของตัวเอง — มันอ่าน prompt หา path ที่เป็นโฟลเดอร์โปรเจกต์จริง
-  แล้วย้ายไปเข้า workspace ของโฟลเดอร์นั้น (ปฏิเสธพาธเสี่ยง เช่น home dir, `Windows`, `node_modules`, `.git`)
-- sync อัตโนมัติหลังเปิดแอป ~3.5 วินาที แล้วทุก 15 นาที (ข้ามไฟล์ที่ไม่เปลี่ยน)
-- **ข้อจำกัด**: import เฉพาะข้อความ ไม่ดึง tool call / tool result / reasoning / ไฟล์แนบ, และ session ที่ถูก import ไปแล้ว
-  จะไม่อัปเดตตามที่คุยต่อในแอปต้นทาง (ลบ `state.json` + session ที่ import แล้วเพื่อ import ใหม่)
+- session à¸—à¸µà¹ˆ import à¹à¸¥à¹‰à¸§à¹€à¸›à¹‡à¸™ **session à¸›à¸à¸•à¸´à¸‚à¸­à¸‡ DSH** â€” à¹€à¸«à¹‡à¸™à¹ƒà¸™ sidebar, à¹€à¸›à¸´à¸”à¸­à¹ˆà¸²à¸™à¹„à¸”à¹‰, archive/delete à¹„à¸”à¹‰à¸•à¸²à¸¡à¸›à¸à¸•à¸´
+- import à¸‹à¹‰à¸³à¹„à¸¡à¹ˆà¹„à¸”à¹‰: `state.json` à¹€à¸à¹‡à¸š map à¸‚à¸­à¸‡ session à¸ à¸²à¸¢à¸™à¸­à¸ â†’ id à¸‚à¸­à¸‡ session à¹ƒà¸™ DSH
+- à¹‚à¸¥à¹‚à¸à¹‰à¹ƒà¸™à¹à¸–à¸§: â­ à¸ªà¹‰à¸¡ = Claude Code, M à¸¡à¹ˆà¸§à¸‡ = MiniMax Code, D à¸™à¹‰à¸³à¹€à¸‡à¸´à¸™ = DSH
+- **regroup** à¸Šà¹ˆà¸§à¸¢à¸à¸£à¸“à¸µ MiniMax à¹€à¸à¹‡à¸š session à¹„à¸§à¹‰à¹ƒà¸™ sandbox à¸‚à¸­à¸‡à¸•à¸±à¸§à¹€à¸­à¸‡ â€” à¸¡à¸±à¸™à¸­à¹ˆà¸²à¸™ prompt à¸«à¸² path à¸—à¸µà¹ˆà¹€à¸›à¹‡à¸™à¹‚à¸Ÿà¸¥à¹€à¸”à¸­à¸£à¹Œà¹‚à¸›à¸£à¹€à¸ˆà¸à¸•à¹Œà¸ˆà¸£à¸´à¸‡
+  à¹à¸¥à¹‰à¸§à¸¢à¹‰à¸²à¸¢à¹„à¸›à¹€à¸‚à¹‰à¸² workspace à¸‚à¸­à¸‡à¹‚à¸Ÿà¸¥à¹€à¸”à¸­à¸£à¹Œà¸™à¸±à¹‰à¸™ (à¸›à¸à¸´à¹€à¸ªà¸˜à¸žà¸²à¸˜à¹€à¸ªà¸µà¹ˆà¸¢à¸‡ à¹€à¸Šà¹ˆà¸™ home dir, `Windows`, `node_modules`, `.git`)
+- sync à¸­à¸±à¸•à¹‚à¸™à¸¡à¸±à¸•à¸´à¸«à¸¥à¸±à¸‡à¹€à¸›à¸´à¸”à¹à¸­à¸› ~3.5 à¸§à¸´à¸™à¸²à¸—à¸µ à¹à¸¥à¹‰à¸§à¸—à¸¸à¸ 15 à¸™à¸²à¸—à¸µ (à¸‚à¹‰à¸²à¸¡à¹„à¸Ÿà¸¥à¹Œà¸—à¸µà¹ˆà¹„à¸¡à¹ˆà¹€à¸›à¸¥à¸µà¹ˆà¸¢à¸™)
+- **à¸‚à¹‰à¸­à¸ˆà¸³à¸à¸±à¸”**: import à¹€à¸‰à¸žà¸²à¸°à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡ à¹„à¸¡à¹ˆà¸”à¸¶à¸‡ tool call / tool result / reasoning / à¹„à¸Ÿà¸¥à¹Œà¹à¸™à¸š, à¹à¸¥à¸° session à¸—à¸µà¹ˆà¸–à¸¹à¸ import à¹„à¸›à¹à¸¥à¹‰à¸§
+  à¸ˆà¸°à¹„à¸¡à¹ˆà¸­à¸±à¸›à¹€à¸”à¸•à¸•à¸²à¸¡à¸—à¸µà¹ˆà¸„à¸¸à¸¢à¸•à¹ˆà¸­à¹ƒà¸™à¹à¸­à¸›à¸•à¹‰à¸™à¸—à¸²à¸‡ (à¸¥à¸š `state.json` + session à¸—à¸µà¹ˆ import à¹à¸¥à¹‰à¸§à¹€à¸žà¸·à¹ˆà¸­ import à¹ƒà¸«à¸¡à¹ˆ)
 
-ติดตั้ง: `git clone` แล้ว `plugin_manager install_bundle target=<path>` ใน DSH รีสตาร์ทหนึ่งครั้ง
+à¸•à¸´à¸”à¸•à¸±à¹‰à¸‡: `git clone` à¹à¸¥à¹‰à¸§ `plugin_manager install_bundle target=<path>` à¹ƒà¸™ DSH à¸£à¸µà¸ªà¸•à¸²à¸£à¹Œà¸—à¸«à¸™à¸¶à¹ˆà¸‡à¸„à¸£à¸±à¹‰à¸‡
 
 ## License
 
-[MIT](LICENSE) © 2026 BornCode
+[MIT](LICENSE) Â© 2026 BornCode
